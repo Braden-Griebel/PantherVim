@@ -5,35 +5,12 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
-    # see :help nixCats.flake.inputs
-    # If you want your plugin to be loaded by the standard overlay,
-    # i.e. if it wasnt on nixpkgs, but doesnt have an extra build step.
-    # Then you should name it "plugins-something"
-    # If you wish to define a custom build step not handled by nixpkgs,
-    # then you should name it in a different format, and deal with that in the
-    # overlay defined for custom builds in the overlays directory.
-    # for specific tags, branches and commits, see:
-    # https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html#examples
-
-    # No longer fetched to avoid forcing people to import it, but this remains here as a tutorial.
-    # How to import it into your config is shown farther down in the startupPlugins set.
-    # You put it here like this, and then below you would use it with `pkgs.neovimPlugins.hlargs`
-
-    # "plugins-hlargs" = {
-    #   url = "github:m-demare/hlargs.nvim";
-    #   flake = false;
-    # };
     "plugins-toggleterm" = {
       url = "github:akinsho/toggleterm.nvim";
       flake = false;
     };
-
-    # neovim-nightly-overlay = {
-    #   url = "github:nix-community/neovim-nightly-overlay";
-    # };
   };
 
-  # see :help nixCats.flake.outputs
   outputs = {
     self,
     nixpkgs,
@@ -51,35 +28,9 @@
     extra_pkg_config = {
       # allowUnfree = true;
     };
-    # management of the system variable is one of the harder parts of using flakes.
-
-    # so I have done it here in an interesting way to keep it out of the way.
-    # It gets resolved within the builder itself, and then passed to your
-    # categoryDefinitions and packageDefinitions.
-
-    # this allows you to use ${pkgs.system} whenever you want in those sections
-    # without fear.
-
-    # see :help nixCats.flake.outputs.overlays
-    dependencyOverlays =
-      /*
-      (import ./overlays inputs) ++
-      */
-      [
-        # This overlay grabs all the inputs named in the format
-        # `plugins-<pluginName>`
-        # Once we add this overlay to our nixpkgs, we are able to
-        # use `pkgs.neovimPlugins`, which is a set of our plugins.
-        (utils.standardPluginOverlay inputs)
-        # add any other flake overlays here.
-
-        # when other people mess up their overlays by wrapping them with system,
-        # you may instead call this function on their overlay.
-        # it will check if it has the system in the set, and if so return the desired overlay
-        # (utils.fixSystemizedOverlay inputs.codeium.overlays
-        #   (system: inputs.codeium.overlays.${system}.default)
-        # )
-      ];
+    dependencyOverlays = [
+      (utils.standardPluginOverlay inputs)
+    ];
 
     # see :help nixCats.flake.outputs.categories
     # and
@@ -93,20 +44,12 @@
       mkPlugin,
       ...
     } @ packageDef: {
-      # to define and use a new category, simply add a new list to a set here,
-      # and later, you will include categoryname = true; in the set you
-      # provide when you build the package using this builder function.
-      # see :help nixCats.flake.outputs.packageDefinitions for info on that section.
-
-      # lspsAndRuntimeDeps:
-      # this section is for dependencies that should be available
-      # at RUN TIME for plugins. Will be available to PATH within neovim terminal
-      # this includes LSPs
       lspsAndRuntimeDeps = {
         languages = with pkgs; {
-          bash = [bash-language-server];
+          bash = [bash-language-server shfmt];
           cpp = [clang-tools neocmakelsp];
           css = [vscode-langservers-extracted];
+          fish = [fish-lsp];
           fortran = [fortls];
           gleam = [gleam];
           go = [
@@ -167,8 +110,6 @@
           fd
           fzf
         ];
-        # but you can choose which ones you want
-        # per nvim package you export
         debug = with pkgs; [
           lldb
         ];
@@ -192,26 +133,38 @@
           (nvim-notify.overrideAttrs {doCheck = false;}) # TODO: remove overrideAttrs after check is fixed
         ];
         languages = with pkgs.vimPlugins; {
+          bash = [];
           cpp = [];
+          css = [];
+          fish = [];
+          fortran = [];
+          gleam = [];
           go = [];
+          haskell = [];
+          html = [];
           java = [];
+          javascript = [];
+          json = [];
           lean = [];
-          mardown = [];
+          lua = [];
+          markdown = [];
           nix = [];
+          ocaml = [];
           python = [];
+          r = [];
           rust = [
             rustaceanvim
           ];
-          typst = [];
+          typst = [
+          ];
+          xml = [];
+          yaml = [];
         };
         ui = with pkgs.vimPlugins; [
           neo-tree-nvim
           nvim-web-devicons
           oil-nvim
         ];
-        # You can retreive information from the
-        # packageDefinitions of the package this was packaged with.
-        # :help nixCats.flake.outputs.categoryDefinitions.scheme
         themer = with pkgs.vimPlugins; (
           builtins.getAttr (categories.colorscheme or "rose-pine") {
             # Theme switcher without creating a new category
@@ -223,14 +176,9 @@
             "tokyonight-day" = tokyonight-nvim;
           }
         );
-        # This is obviously a fairly basic usecase for this, but still nice.
       };
 
       # not loaded automatically at startup.
-      # use with packadd and an autocommand in config to achieve lazy loading
-      # or a tool for organizing this like lze or lz.n!
-      # to get the name packadd expects, use the
-      # `:NixCats pawsible` command to see them all
       optionalPlugins = {
         coding = with pkgs.vimPlugins; [
           nvim-treesitter-textobjects
@@ -303,8 +251,6 @@
       # variable available to nvim runtime
       sharedLibraries = {
         general = with pkgs; [
-          # <- this would be included if any of the subcategories of general are
-          # libgit2
         ];
       };
 
@@ -312,26 +258,12 @@
       # this section is for environmentVariables that should be available
       # at RUN TIME for plugins. Will be available to path within neovim terminal
       environmentVariables = {
-        test = {
-          default = {
-            CATTESTVARDEFAULT = "It worked!";
-          };
-          subtest1 = {
-            CATTESTVAR = "It worked!";
-          };
-          subtest2 = {
-            CATTESTVAR3 = "It didn't work!";
-          };
-        };
       };
 
       # If you know what these are, you can provide custom ones by category here.
       # If you dont, check this link out:
       # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
       extraWrapperArgs = {
-        test = [
-          ''--set CATTESTVAR2 "It worked again!"''
-        ];
       };
 
       # lists of the functions you would have passed to
@@ -343,7 +275,7 @@
       # vim.g.python3_host_prog
       # or run from nvim terminal via :!<packagename>-python3
       python3.libraries = {
-        test = _: [];
+        debug = [(python-pkgs: [python-pkgs.debugpy])];
       };
       # populates $LUA_PATH and $LUA_CPATH
       extraLuaPackages = {
@@ -361,14 +293,8 @@
           "languages"
           "default"
         ];
-        test = [
-          ["test" "default"]
-        ];
         debug = [
           ["debug" "default"]
-        ];
-        go = [
-          ["debug" "go"] # yes it has to be a list of lists
         ];
       };
     };
@@ -418,9 +344,6 @@
           lint = true;
           format = true;
           neonixdev = true;
-          test = {
-            subtest1 = true;
-          };
 
           # enabling this category will enable the go category,
           # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.
@@ -472,7 +395,6 @@
           neonixdev = true;
           lint = true;
           format = true;
-          test = true;
           # go = true; # <- disabled but you could enable it with override or module on install
           lspDebugMode = false;
           themer = true;

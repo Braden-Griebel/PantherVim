@@ -242,9 +242,11 @@
           ];
           typst = [];
         };
-        ui = with pkgs.vimPlugins; [
-          lualine-nvim
-        ];
+        ui = with pkgs.vimPlugins;
+          [
+            lualine-nvim
+          ]
+          ++ (with pkgs.neovimPlugins; [toggleterm]);
       };
 
       # shared libraries to be added to LD_LIBRARY_PATH

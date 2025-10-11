@@ -23,6 +23,10 @@
     #   url = "github:m-demare/hlargs.nvim";
     #   flake = false;
     # };
+    "plugins-toggleterm" = {
+      url = "github:akinsho/toggleterm.nvim";
+      flake = false;
+    };
 
     # neovim-nightly-overlay = {
     #   url = "github:nix-community/neovim-nightly-overlay";
@@ -99,63 +103,120 @@
       # at RUN TIME for plugins. Will be available to PATH within neovim terminal
       # this includes LSPs
       lspsAndRuntimeDeps = {
+        languages = with pkgs; {
+          bash = [bash-language-server];
+          cpp = [clang-tools neocmakelsp];
+          css = [vscode-langservers-extracted];
+          fortran = [fortls];
+          gleam = [gleam];
+          go = [
+            gopls
+            gofumpt
+            go-tools
+            delve
+          ];
+          haskell = [hls];
+          html = [vscode-langservers-extracted];
+          java = [
+            jdt-language-server
+          ];
+          javascript = [
+            deno
+            oxlint
+          ];
+          json = [vscode-langservers-extracted];
+          lean = [
+            lean
+          ];
+          lua = [
+            lua-language-server
+          ];
+          markdown = [
+            marksman
+          ];
+          nix = [
+            nix-doc
+            nixd
+          ];
+          ocaml = [ocamlPackages.ocaml-lsp];
+          python = [
+            ruff
+            mypy
+            pyright
+          ];
+          r = [
+            air
+            rPackages.languageserver
+          ];
+          rust = [
+            clippy
+            rust-analyzer
+            rustfmt
+          ];
+          typst = [
+            tinymist
+            typstyle
+          ];
+          xml = [lemminx];
+          yaml = [vscode-langservers-extracted];
+        };
         # some categories of stuff.
         general = with pkgs; [
           universal-ctags
           ripgrep
           fd
-        ];
-        # these names are arbitrary.
-        lint = with pkgs; [
+          fzf
         ];
         # but you can choose which ones you want
         # per nvim package you export
-        debug = with pkgs; {
-          go = [delve];
-        };
-        go = with pkgs; [
-          gopls
-          gotools
-          go-tools
-          gccgo
+        debug = with pkgs; [
+          lldb
         ];
-        # and easily check if they are included in lua
-        format = with pkgs; [
+        writing = with pkgs; [
+          harper
         ];
-        neonixdev = {
-          # also you can do this.
-          inherit (pkgs) nix-doc lua-language-server nixd;
-          # and each will be its own sub category
-        };
       };
 
       # This is for plugins that will load at startup without using packadd:
       startupPlugins = {
-        debug = with pkgs.vimPlugins; [
-          nvim-nio
-        ];
-        general = with pkgs.vimPlugins; {
-          # you can make subcategories!!!
-          # (always isnt a special name, just the one I chose for this subcategory)
-          always = [
-            lze
-            lzextras
-            vim-repeat
-            plenary-nvim
-            (nvim-notify.overrideAttrs {doCheck = false;}) # TODO: remove overrideAttrs after check is fixed
-          ];
-          extra = [
-            oil-nvim
-            nvim-web-devicons
-          ];
+        coding = with pkgs.vimPlugins; [];
+        debug = with pkgs.vimPlugins; {
+          default = [nvim-nio];
         };
+        editor = with pkgs.vimPlugins; [];
+        general = with pkgs.vimPlugins; [
+          lze
+          lzextras
+          vim-repeat
+          plenary-nvim
+          (nvim-notify.overrideAttrs {doCheck = false;}) # TODO: remove overrideAttrs after check is fixed
+        ];
+        languages = with pkgs.vimPlugins; {
+          cpp = [];
+          go = [];
+          java = [];
+          lean = [];
+          mardown = [];
+          nix = [];
+          python = [];
+          rust = [
+            rustaceanvim
+          ];
+          typst = [];
+        };
+        ui = with pkgs.vimPlugins; [
+          neo-tree-nvim
+          nvim-web-devicons
+          oil-nvim
+        ];
         # You can retreive information from the
         # packageDefinitions of the package this was packaged with.
         # :help nixCats.flake.outputs.categoryDefinitions.scheme
         themer = with pkgs.vimPlugins; (
-          builtins.getAttr (categories.colorscheme or "onedark") {
+          builtins.getAttr (categories.colorscheme or "rose-pine") {
             # Theme switcher without creating a new category
             "onedark" = onedark-nvim;
+            "rose-pine" = rose-pine;
             "catppuccin" = catppuccin-nvim;
             "catppuccin-mocha" = catppuccin-nvim;
             "tokyonight" = tokyonight-nvim;
@@ -171,6 +232,11 @@
       # to get the name packadd expects, use the
       # `:NixCats pawsible` command to see them all
       optionalPlugins = {
+        coding = with pkgs.vimPlugins; [
+          nvim-treesitter-textobjects
+          nvim-treesitter.withAllGrammars
+          comment-nvim
+        ];
         debug = with pkgs.vimPlugins; {
           # it is possible to add default values.
           # there is nothing special about the word "default"
@@ -182,65 +248,55 @@
             nvim-dap-virtual-text
           ];
           go = [nvim-dap-go];
+          python = [nvim-dap-python];
         };
-        lint = with pkgs.vimPlugins; [
-          nvim-lint
-        ];
-        format = with pkgs.vimPlugins; [
-          conform-nvim
-        ];
-        markdown = with pkgs.vimPlugins; [
-          markdown-preview-nvim
-        ];
-        neonixdev = with pkgs.vimPlugins; [
-          lazydev-nvim
+        editor = with pkgs.vimPlugins; [
+          gitsigns-nvim
+          telescope-fzf-native-nvim
+          telescope-ui-select-nvim
+          telescope-nvim
+          undotree
+          which-key-nvim
+          vim-sleuth
+          vim-fugitive
         ];
         general = {
-          blink = with pkgs.vimPlugins; [
+          extra = with pkgs.vimPlugins; [
+            # If it was included in your flake inputs as plugins-hlargs,
+            # this would be how to add that plugin in your config.
+            # pkgs.neovimPlugins.hlargs
+          ];
+        };
+        languages = with pkgs.vimPlugins; {
+          default = [
+            nvim-lspconfig
+            nvim-line
+            conform-nvim
+            lazydev-nvim
             luasnip
             cmp-cmdline
             blink-cmp
             blink-compat
             colorful-menu-nvim
           ];
-          treesitter = with pkgs.vimPlugins; [
-            nvim-treesitter-textobjects
-            nvim-treesitter.withAllGrammars
-            # This is for if you only want some of the grammars
-            # (nvim-treesitter.withPlugins (
-            #   plugins: with plugins; [
-            #     nix
-            #     lua
-            #   ]
-            # ))
+          cpp = [];
+          go = [];
+          java = [];
+          lean = [
+            lean-nvim
           ];
-          telescope = with pkgs.vimPlugins; [
-            telescope-fzf-native-nvim
-            telescope-ui-select-nvim
-            telescope-nvim
+          markdown = [
+            render-markdown-nvim
           ];
-          always = with pkgs.vimPlugins; [
-            nvim-lspconfig
-            lualine-nvim
-            gitsigns-nvim
-            vim-sleuth
-            vim-fugitive
-            vim-rhubarb
-            nvim-surround
+          nix = [];
+          python = [];
+          rust = [
           ];
-          extra = with pkgs.vimPlugins; [
-            fidget-nvim
-            # lualine-lsp-progress
-            which-key-nvim
-            comment-nvim
-            undotree
-            indent-blankline-nvim
-            vim-startuptime
-            # If it was included in your flake inputs as plugins-hlargs,
-            # this would be how to add that plugin in your config.
-            # pkgs.neovimPlugins.hlargs
-          ];
+          typst = [];
         };
+        ui = with pkgs.vimPlugins; [
+          lualine-nvim
+        ];
       };
 
       # shared libraries to be added to LD_LIBRARY_PATH
@@ -301,6 +357,10 @@
       # The categories argument of this function is the FINAL value.
       # You may use it in any of the other sets.
       extraCats = {
+        languages = [
+          "languages"
+          "default"
+        ];
         test = [
           ["test" "default"]
         ];

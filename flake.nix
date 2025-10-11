@@ -9,6 +9,11 @@
       url = "github:akinsho/toggleterm.nvim";
       flake = false;
     };
+
+    "plugins-rnvim" = {
+      url = "github:R-nvim/R.nvim";
+      flake = false;
+    };
   };
 
   outputs = {
@@ -45,8 +50,15 @@
       ...
     } @ packageDef: {
       lspsAndRuntimeDeps = {
+        editor = with pkgs; [
+          fd
+          fzf
+          lazygit
+          ripgrep
+          universal-ctags
+        ];
         languages = with pkgs; {
-          bash = [bash-language-server shfmt];
+          bash = [bash-language-server shfmt shellcheck];
           cpp = [clang-tools neocmakelsp];
           css = [vscode-langservers-extracted];
           fish = [fish-lsp];
@@ -56,7 +68,6 @@
             gopls
             gofumpt
             go-tools
-            delve
           ];
           haskell = [hls];
           html = [vscode-langservers-extracted];
@@ -76,8 +87,10 @@
           ];
           markdown = [
             marksman
+            markdownlint-cli2
           ];
           nix = [
+            alejandra
             nix-doc
             nixd
           ];
@@ -103,15 +116,12 @@
           xml = [lemminx];
           yaml = [vscode-langservers-extracted];
         };
-        # some categories of stuff.
         general = with pkgs; [
-          universal-ctags
-          ripgrep
-          fd
-          fzf
         ];
         debug = with pkgs; [
           lldb
+          delve
+          python313Packages.debugpy
         ];
         writing = with pkgs; [
           harper
@@ -181,9 +191,10 @@
       # not loaded automatically at startup.
       optionalPlugins = {
         coding = with pkgs.vimPlugins; [
+          comment-nvim
+          inc-rename-nvim
           nvim-treesitter-textobjects
           nvim-treesitter.withAllGrammars
-          comment-nvim
         ];
         debug = with pkgs.vimPlugins; {
           # it is possible to add default values.
@@ -199,37 +210,45 @@
           python = [nvim-dap-python];
         };
         editor = with pkgs.vimPlugins; [
+          auto-pairs
+          fidget-nvim
+          flash-nvim
           gitsigns-nvim
+          indent-blankline-nvim
+          marks-nvim
+          mini-ai
+          mini-animate
+          mini-icons
+          mini-surround
+          snacks-nvim
           telescope-fzf-native-nvim
-          telescope-ui-select-nvim
           telescope-nvim
+          telescope-ui-select-nvim
           undotree
-          which-key-nvim
-          vim-sleuth
           vim-fugitive
+          vim-sleuth
+          vim-slime
+          vim-tmux-navigator
+          which-key-nvim
+          yanky-nvim
         ];
-        general = {
-          extra = with pkgs.vimPlugins; [
-            # If it was included in your flake inputs as plugins-hlargs,
-            # this would be how to add that plugin in your config.
-            # pkgs.neovimPlugins.hlargs
-          ];
-        };
         languages = with pkgs.vimPlugins; {
           default = [
-            nvim-lspconfig
-            nvim-line
+            blink-cmp
+            blink-compat
+            cmp-cmdline
+            colorful-menu-nvim
             conform-nvim
             lazydev-nvim
             luasnip
-            cmp-cmdline
-            blink-cmp
-            blink-compat
-            colorful-menu-nvim
+            nvim-lint
+            nvim-lspconfig
           ];
           cpp = [];
           go = [];
-          java = [];
+          java = [
+            nvim-jdtls
+          ];
           lean = [
             lean-nvim
           ];
@@ -240,20 +259,23 @@
           python = [];
           rust = [
           ];
+          r = [r-nvim];
           typst = [];
         };
-        ui = with pkgs.vimPlugins;
-          [
+        ui =
+          (with pkgs.vimPlugins; [
+            bufferline-nvim
             lualine-nvim
-          ]
-          ++ (with pkgs.neovimPlugins; [toggleterm]);
+            noice-nvim
+            nvim-cursorline
+            smear-cursor-nvim
+          ])
+          ++ (with pkgs.neovimPlugins; [toggleterm rnvim]);
       };
 
       # shared libraries to be added to LD_LIBRARY_PATH
       # variable available to nvim runtime
       sharedLibraries = {
-        general = with pkgs; [
-        ];
       };
 
       # environmentVariables:

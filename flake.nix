@@ -69,7 +69,7 @@
             gofumpt
             go-tools
           ];
-          haskell = [hls];
+          haskell = [haskell-language-server];
           html = [vscode-langservers-extracted];
           java = [
             jdt-language-server
@@ -80,7 +80,7 @@
           ];
           json = [vscode-langservers-extracted];
           lean = [
-            lean
+            lean4
           ];
           lua = [
             lua-language-server
@@ -258,7 +258,7 @@
           python = [];
           rust = [
           ];
-          r = [r-nvim];
+          r = [] ++ (with pkgs.neovimPlugins; [rnvim]);
           typst = [];
         };
         ui =
@@ -269,7 +269,7 @@
             nvim-cursorline
             smear-cursor-nvim
           ])
-          ++ (with pkgs.neovimPlugins; [toggleterm rnvim]);
+          ++ (with pkgs.neovimPlugins; [toggleterm]);
       };
 
       # shared libraries to be added to LD_LIBRARY_PATH
@@ -312,8 +312,10 @@
       # You may use it in any of the other sets.
       extraCats = {
         languages = [
-          "languages"
-          "default"
+          [
+            "languages"
+            "default"
+          ]
         ];
         debug = [
           ["debug" "default"]
@@ -337,7 +339,6 @@
       nvim = {
         pkgs,
         name,
-        lib,
         ...
       } @ misc: {
         settings = {
@@ -363,9 +364,6 @@
           nixdExtras = {
             nixpkgs = ''import ${pkgs.path} {}'';
             # or inherit nixpkgs;
-          };
-          debugExtra = {
-            lldbPath = ''${lib.getExe pkgs.lldb}'';
           };
         };
       };

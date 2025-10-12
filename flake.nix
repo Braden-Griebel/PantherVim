@@ -116,14 +116,14 @@
           ];
           xml = [lemminx];
           yaml = [vscode-langservers-extracted];
+          writing = [
+            harper
+          ];
         };
         debug = with pkgs; [
           lldb
           delve
           python313Packages.debugpy
-        ];
-        writing = with pkgs; [
-          harper
         ];
       };
 
@@ -137,6 +137,7 @@
           default = [
             lze
             lzextras
+            nui-nvim
             vim-repeat
             plenary-nvim
             (nvim-notify.overrideAttrs {doCheck = false;}) # TODO: remove overrideAttrs after check is fixed
@@ -275,6 +276,7 @@
           ];
           r = [] ++ (with pkgs.neovimPlugins; [rnvim]);
           typst = [];
+          writing = [];
         };
         ui =
           (with pkgs.vimPlugins; [
@@ -375,9 +377,40 @@
           debug = true;
           editor = {
             default = true;
-            extras = true;
+            files = true;
+            git = true;
+            indent = true;
+            information = true;
+            movement = true;
+            picker = true;
+            repl = true;
           };
-          languages = true;
+          languages = {
+            default = true;
+            bash = true;
+            cpp = true;
+            css = true;
+            fish = true;
+            fortran = true;
+            gleam = true;
+            go = true;
+            haskell = true;
+            html = true;
+            java = true;
+            javascript = true;
+            json = true;
+            lean = true;
+            lua = true;
+            markdown = true;
+            nix = true;
+            ocaml = true;
+            python = true;
+            r = true;
+            rust = true;
+            typst = true;
+            xml = true;
+            yaml = true;
+          };
           lspDebugMode = false;
           themer = true;
           ui = true;

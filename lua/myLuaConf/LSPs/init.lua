@@ -187,7 +187,11 @@ require("lze").load({
 		lsp = {},
 		for_cat = "languages.yaml",
 	},
-	{ "harper_ls", lsp = {}, for_cat = "writing" },
+	{
+		"harper_ls",
+		lsp = {},
+		for_cat = "languages.writing",
+	},
 	{
 		"rnix",
 		-- mason doesn't have nixd

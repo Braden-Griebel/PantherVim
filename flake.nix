@@ -142,7 +142,6 @@
             (nvim-notify.overrideAttrs {doCheck = false;}) # TODO: remove overrideAttrs after check is fixed
           ];
           extras = [
-            oil-nvim
           ];
         };
         languages = with pkgs.vimPlugins; {
@@ -235,7 +234,9 @@
             which-key-nvim
             yanky-nvim
           ];
-          extras = [];
+          extras = [
+            oil-nvim
+          ];
         };
         languages = with pkgs.vimPlugins; {
           default = [
@@ -362,7 +363,10 @@
           colorscheme = "rose-pine";
           coding = true;
           debug = true;
-          editor = true;
+          editor = {
+            default = true;
+            extras = true;
+          };
           languages = true;
           lspDebugMode = false;
           themer = true;

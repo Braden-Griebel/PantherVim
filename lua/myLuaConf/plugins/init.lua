@@ -1,10 +1,7 @@
 local colorschemeName = nixCats("colorscheme")
 if not require("nixCatsUtils").isNixCats then
-	colorschemeName = "onedark"
+	colorschemeName = "rose-pine"
 end
--- Could I lazy load on colorscheme with lze?
--- sure. But I was going to call vim.cmd.colorscheme() during startup anyway
--- this is just an example, feel free to do a better job!
 vim.cmd.colorscheme(colorschemeName)
 
 local ok, notify = pcall(require, "notify")
@@ -20,47 +17,11 @@ if ok then
 	end, { desc = "dismiss notify popup and clear hlsearch" })
 end
 
--- NOTE: you can check if you included the category with the thing wherever you want.
-if nixCats("editor.extras") then
-	vim.g.loaded_netrwPlugin = 1
-	require("oil").setup({
-		default_file_explorer = true,
-		view_options = {
-			show_hidden = true,
-		},
-		columns = {
-			"icon",
-			"permissions",
-			"size",
-			-- "mtime",
-		},
-		keymaps = {
-			["g?"] = "actions.show_help",
-			["<CR>"] = "actions.select",
-			["<C-s>"] = "actions.select_vsplit",
-			["<C-h>"] = "actions.select_split",
-			["<C-t>"] = "actions.select_tab",
-			["<C-p>"] = "actions.preview",
-			["<C-c>"] = "actions.close",
-			["<C-l>"] = "actions.refresh",
-			["-"] = "actions.parent",
-			["_"] = "actions.open_cwd",
-			["`"] = "actions.cd",
-			["~"] = "actions.tcd",
-			["gs"] = "actions.change_sort",
-			["gx"] = "actions.open_external",
-			["g."] = "actions.toggle_hidden",
-			["g\\"] = "actions.toggle_trash",
-		},
-	})
-	vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = "Open Parent Directory" })
-	vim.keymap.set("n", "<leader>-", "<cmd>Oil .<CR>", { noremap = true, desc = "Open nvim root directory" })
-end
-
 require("lze").load({
 	{ import = "myLuaConf.plugins.telescope" },
 	{ import = "myLuaConf.plugins.treesitter" },
 	{ import = "myLuaConf.plugins.completion" },
+	{ import = "myLuaConf.plugins.oil" },
 	{
 		"markdown-preview.nvim",
 		-- NOTE: for_cat is a custom handler that just sets enabled value for us,

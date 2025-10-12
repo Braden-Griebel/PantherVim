@@ -76,6 +76,7 @@
           ];
           javascript = [
             deno
+            eslint
             oxlint
           ];
           json = [vscode-langservers-extracted];
@@ -116,8 +117,6 @@
           xml = [lemminx];
           yaml = [vscode-langservers-extracted];
         };
-        general = with pkgs; [
-        ];
         debug = with pkgs; [
           lldb
           delve
@@ -134,13 +133,18 @@
         debug = with pkgs.vimPlugins; {
           default = [nvim-nio];
         };
-        editor = with pkgs.vimPlugins; [
-          lze
-          lzextras
-          vim-repeat
-          plenary-nvim
-          (nvim-notify.overrideAttrs {doCheck = false;}) # TODO: remove overrideAttrs after check is fixed
-        ];
+        editor = with pkgs.vimPlugins; {
+          default = [
+            lze
+            lzextras
+            vim-repeat
+            plenary-nvim
+            (nvim-notify.overrideAttrs {doCheck = false;}) # TODO: remove overrideAttrs after check is fixed
+          ];
+          extras = [
+            oil-nvim
+          ];
+        };
         languages = with pkgs.vimPlugins; {
           bash = [];
           cpp = [];
@@ -172,7 +176,6 @@
         ui = with pkgs.vimPlugins; [
           neo-tree-nvim
           nvim-web-devicons
-          oil-nvim
         ];
         themer = with pkgs.vimPlugins; (
           builtins.getAttr (categories.colorscheme or "rose-pine") {
@@ -208,29 +211,32 @@
           go = [nvim-dap-go];
           python = [nvim-dap-python];
         };
-        editor = with pkgs.vimPlugins; [
-          auto-pairs
-          fidget-nvim
-          flash-nvim
-          gitsigns-nvim
-          indent-blankline-nvim
-          marks-nvim
-          mini-ai
-          mini-animate
-          mini-icons
-          mini-surround
-          snacks-nvim
-          telescope-fzf-native-nvim
-          telescope-nvim
-          telescope-ui-select-nvim
-          undotree
-          vim-fugitive
-          vim-sleuth
-          vim-slime
-          vim-tmux-navigator
-          which-key-nvim
-          yanky-nvim
-        ];
+        editor = with pkgs.vimPlugins; {
+          default = [
+            auto-pairs
+            fidget-nvim
+            flash-nvim
+            gitsigns-nvim
+            indent-blankline-nvim
+            marks-nvim
+            mini-ai
+            mini-animate
+            mini-icons
+            nvim-surround
+            snacks-nvim
+            telescope-fzf-native-nvim
+            telescope-nvim
+            telescope-ui-select-nvim
+            undotree
+            vim-fugitive
+            vim-sleuth
+            vim-slime
+            vim-tmux-navigator
+            which-key-nvim
+            yanky-nvim
+          ];
+          extras = [];
+        };
         languages = with pkgs.vimPlugins; {
           default = [
             blink-cmp
@@ -257,6 +263,7 @@
           nix = [];
           python = [];
           rust = [
+            crates-nvim
           ];
           r = [] ++ (with pkgs.neovimPlugins; [rnvim]);
           typst = [];
@@ -320,6 +327,7 @@
         debug = [
           ["debug" "default"]
         ];
+        editor = [["editor" "default"]];
       };
     };
 

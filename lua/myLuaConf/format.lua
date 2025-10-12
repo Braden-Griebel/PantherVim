@@ -18,6 +18,7 @@ require("lze").load({
 					bash = { "shfmt" },
 					markdown = { "mdformat" },
 					typst = { "typstyle" },
+					nix = { "alejandra" },
 				},
 				formatters = {
 					typstyle = {

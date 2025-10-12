@@ -18,8 +18,8 @@ if ok then
 end
 
 require("lze").load({
+	{ import = "myLuaConf.plugins.coding" },
 	{ import = "myLuaConf.plugins.telescope" },
-	{ import = "myLuaConf.plugins.treesitter" },
 	{ import = "myLuaConf.plugins.completion" },
 	{ import = "myLuaConf.plugins.oil" },
 	{
@@ -61,14 +61,6 @@ require("lze").load({
 		before = function(_)
 			vim.g.undotree_WindowLayout = 1
 			vim.g.undotree_SplitWidth = 40
-		end,
-	},
-	{
-		"comment.nvim",
-		for_cat = "coding",
-		event = "DeferredUIEnter",
-		after = function(plugin)
-			require("Comment").setup()
 		end,
 	},
 	{

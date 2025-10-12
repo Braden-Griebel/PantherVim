@@ -173,7 +173,6 @@
           yaml = [];
         };
         ui = with pkgs.vimPlugins; [
-          neo-tree-nvim
           nvim-web-devicons
         ];
         themer = with pkgs.vimPlugins; (
@@ -192,10 +191,14 @@
       # not loaded automatically at startup.
       optionalPlugins = {
         coding = with pkgs.vimPlugins; [
+          auto-pairs
           comment-nvim
+          mini-ai
+          mini-surround
           inc-rename-nvim
           nvim-treesitter-textobjects
           nvim-treesitter.withAllGrammars
+          yanky-nvim
         ];
         debug = with pkgs.vimPlugins; {
           # it is possible to add default values.
@@ -211,49 +214,53 @@
           python = [nvim-dap-python];
         };
         editor = with pkgs.vimPlugins; {
-          default = [
-            auto-pairs
-            fidget-nvim
-            flash-nvim
+          files = [
+            oil-nvim
+            neo-tree-nvim
+          ];
+          git = [
+            vim-fugitive
             gitsigns-nvim
+          ];
+          indent = [
             indent-blankline-nvim
+            vim-sleuth
+          ];
+          information = [
+            fidget-nvim
+            which-key-nvim
+          ];
+          movement = [
+            flash-nvim
             marks-nvim
-            mini-ai
-            mini-animate
-            mini-icons
-            nvim-surround
-            snacks-nvim
+            vim-tmux-navigator
+          ];
+          picker = [
             telescope-fzf-native-nvim
             telescope-nvim
             telescope-ui-select-nvim
             undotree
-            vim-fugitive
-            vim-sleuth
-            vim-slime
-            vim-tmux-navigator
-            which-key-nvim
-            yanky-nvim
           ];
-          extras = [
-            oil-nvim
+          repl = [
+            vim-slime
           ];
         };
         languages = with pkgs.vimPlugins; {
           default = [
-            blink-cmp
-            blink-compat
-            cmp-cmdline
-            colorful-menu-nvim
-            conform-nvim
-            lazydev-nvim
-            luasnip
-            nvim-lint
-            nvim-lspconfig
+            blink-cmp # Completion engine
+            blink-compat # Compatibility with cmp sources
+            cmp-cmdline # Completion in cmdline
+            colorful-menu-nvim # Treesitter colors in completion
+            conform-nvim # Formatting
+            lazydev-nvim # Improved lua lsp in config
+            luasnip # Snippet support
+            nvim-lint # Runs linters
+            nvim-lspconfig # Default LSP configs
           ];
           cpp = [];
           go = [];
           java = [
-            nvim-jdtls
+            nvim-jdtls # Sets up LSP
           ];
           lean = [
             lean-nvim
@@ -273,9 +280,12 @@
           (with pkgs.vimPlugins; [
             bufferline-nvim
             lualine-nvim
+            mini-animate
+            mini-icons
             noice-nvim
             nvim-cursorline
             smear-cursor-nvim
+            snacks-nvim
           ])
           ++ (with pkgs.neovimPlugins; [toggleterm]);
       };

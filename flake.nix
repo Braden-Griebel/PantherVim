@@ -194,7 +194,7 @@
           auto-pairs
           comment-nvim
           mini-ai
-          mini-surround
+          nvim-surround
           inc-rename-nvim
           nvim-treesitter-textobjects
           nvim-treesitter.withAllGrammars

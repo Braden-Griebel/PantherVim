@@ -20,7 +20,6 @@ end
 require("lze").load({
 	{ import = "myLuaConf.plugins.coding" },
 	{ import = "myLuaConf.plugins.editor" },
-	{ import = "myLuaConf.plugins.telescope" },
 	{ import = "myLuaConf.plugins.completion" },
 	{
 		"markdown-preview.nvim",

@@ -345,11 +345,10 @@ return {
 	},
 	{
 		"vim-tmux-navigator",
+    require = {"vim-tmux-navigator"},
+    for_cat = "editor.movement",
 		before = function()
 			vim.g.tmux_navigator_no_mappings = 1
-		end,
-		after = function(plugin)
-			require("vim-tmux-navigator").setup()
 		end,
 		cmd = {
 			"TmuxNavigateLeft",

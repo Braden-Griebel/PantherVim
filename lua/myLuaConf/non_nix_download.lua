@@ -60,38 +60,51 @@ require('nixCatsUtils.catPacker').setup({
   { 'j-hui/fidget.nvim',                           opt = true, },
   { 'folke/which-key.nvim',                        opt = true, },
 
+  -- Movement
+  { 'folke/flash.nvim',                            opt = true },
+  { 'christoomey/vim-tmux-navigator',              opt = true },
+  { 'chentoast/marks.nvim',                        opt = true },
 
-
-
+  -- Picker
   { 'nvim-telescope/telescope-ui-select.nvim',     opt = true, },
   { 'nvim-telescope/telescope.nvim',               opt = true, },
+  { 'mbbill/undotree',                             opt = true, },
 
-  -- lsp
-  { 'williamboman/mason.nvim',                     opt = true, },
-  { 'williamboman/mason-lspconfig.nvim',           opt = true, },
-  { 'neovim/nvim-lspconfig',                       opt = true, },
-  { 'folke/lazydev.nvim',                          opt = true, },
+  -- Repl
+  { 'jpalardy/vim-slime',                          opt = true },
 
-  -- completion
-  { 'L3MON4D3/LuaSnip',                            opt = true,          as = "luasnip", },
-  { 'hrsh7th/cmp-cmdline',                         opt = true, },
+  -- Languages Category
   { 'Saghen/blink.cmp',                            opt = true, },
   { 'Saghen/blink.compat',                         opt = true, },
+  { 'hrsh7th/cmp-cmdline',                         opt = true, },
   { 'xzbdmw/colorful-menu.nvim',                   opt = true, },
-
-  -- lint and format
-  { 'mfussenegger/nvim-lint',                      opt = true, },
   { 'stevearc/conform.nvim',                       opt = true, },
+  { 'folke/lazydev.nvim',                          opt = true, },
+  { 'L3MON4D3/LuaSnip',                            opt = true,          as = "luasnip", },
+  { 'mfussenegger/nvim-lint',                      opt = true, },
+  { 'neovim/nvim-lspconfig',                       opt = true, },
+  -- Mason to download LSPs and Formatters
+  { 'williamboman/mason.nvim',                     opt = true, },
+  { 'williamboman/mason-lspconfig.nvim',           opt = true, },
 
-  -- dap
+  -- Java
+  { 'mfussenegger/nvim-jdtls',                     opt = true },
+  { 'Julian/lean.nvim',                            opt = true },
+  { 'MeanderingProgrammer/render-markdown.nvim',   opt = true },
 
-  { 'mbbill/undotree',                             opt = true, },
-  { 'tpope/vim-rhubarb',                           opt = true, },
+  -- Rust
+  { 'Saecki/crates.nvim',                          opt = true },
+  { 'R-nvim/R.nvim',                               opt = true,          as = 'rnvim' },
+
+  -- Category UI
+  { 'akinsho/bufferline.nvim',                     opt = true },
   { 'nvim-lualine/lualine.nvim',                   opt = true, },
-  { 'kylechui/nvim-surround',                      opt = true, },
-  {
-    "iamcco/markdown-preview.nvim",
-    build = ":call mkdp#util#install()",
-    opt = true,
-  },
+  { 'nvim-mini/mini.animate',                      opt = true },
+  { 'nvim-mini/mini.icons',                        opt = true },
+  { 'folke/noice.nvim',                            opt = true, },
+  { 'ya2s/nvim-cursorline',                        opt = true },
+  { 'sphamba/smear-cursor.nvim',                   opt = true, },
+  { 'folke/snacks.nvim',                           opt = true },
+  { 'rubiin/fortune.nvim',                         opt = true },
+  { 'akinsho/toggleterm.nvim',                     opt = true,          as = 'toggleterm' }
 })

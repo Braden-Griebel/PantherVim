@@ -226,7 +226,6 @@
             vim-tmux-navigator
           ];
           picker = [
-            telescope-fzf-native-nvim
             telescope-nvim
             telescope-ui-select-nvim
             undotree

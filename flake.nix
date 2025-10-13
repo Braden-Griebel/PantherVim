@@ -269,6 +269,7 @@
         ui =
           (with pkgs.vimPlugins; [
             bufferline-nvim
+            dashboard-nvim
             lualine-nvim
             mini-animate
             mini-icons

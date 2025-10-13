@@ -157,6 +157,7 @@ return {
   },
   {
     "fortune.nvim",
+    dep_of = { "dashboard" },
     on_require = { "fortune" },
     after = function(plugin)
       require("fortune").setup({
@@ -170,14 +171,21 @@ return {
   {
     "snacks.nvim",
     after = function(plugin)
-      Footer = function()
-        local fortune = require("fortune").get_fortune()
-        return fortune
-      end
-      require("snacks").setup({
-        dashboard = {
-          preset = {
-            header = [[
+      require("snacks").setup()
+    end,
+    on_require = { "snacks" },
+    dep_of = { "dashboard" },
+  },
+  {
+    "dashboard-nvim",
+    event = "VimEnter",
+    after = function(plugin)
+      require("dashboard").setup({
+        theme = "doom",
+        config = {
+          change_to_vcs_root = true,
+          footer = require("fortune").get_fortune(),
+          header = [[
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣶⣶⣦⣄⡀⠀⠀⠀⠀⢀⣀⣠⣤⣤⣴⣶⣶⣦⣤⣤⣄⣀⠀⠀⠀⠀⠀⣀⣤⣴⣶⣾⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣴⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -192,23 +200,17 @@ return {
 ⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠻⢿⣿⡿⠟⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠻⣿⣿⠿⠋⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀
               ]],
-            -- stylua: ignore
-            keys = {
-              { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-              { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-              { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-              { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-              { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-            },
+          center = {
+            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+            { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+            { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+            { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
+            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
-          sections = {
-            { section = "header" },
-            { section = "keys",  gap = 1, padding = 1 },
-            { text = Footer() },
-          },
+
         },
       })
-    end,
+    end
   },
   -- Terminal
   {

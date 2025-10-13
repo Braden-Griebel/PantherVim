@@ -170,10 +170,6 @@ return {
   {
     "snacks.nvim",
     after = function(plugin)
-      Footer = function()
-        local fortune = require("fortune").get_fortune()
-        return fortune
-      end
       require("snacks").setup({
         dashboard = {
           preset = {
@@ -203,8 +199,8 @@ return {
           },
           sections = {
             { section = "header" },
-            { section = "keys",  gap = 1, padding = 1 },
-            { text = Footer() },
+            { section = "keys",                                           gap = 1, padding = 1 },
+            { text = table.concat(require("fortune").get_fortune(), "\n") }
           },
         },
       })

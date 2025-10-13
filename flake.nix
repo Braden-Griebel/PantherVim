@@ -192,7 +192,7 @@
       # not loaded automatically at startup.
       optionalPlugins = {
         coding = with pkgs.vimPlugins; [
-          auto-pairs
+          nvim-autopairs
           comment-nvim
           mini-ai
           mini-surround
@@ -222,6 +222,7 @@
           git = [
             vim-fugitive
             gitsigns-nvim
+            lazygit-nvim
           ];
           indent = [
             indent-blankline-nvim
@@ -288,6 +289,7 @@
             nvim-cursorline
             smear-cursor-nvim
             snacks-nvim
+            fortune-nvim
           ])
           ++ (with pkgs.neovimPlugins; [toggleterm]);
       };

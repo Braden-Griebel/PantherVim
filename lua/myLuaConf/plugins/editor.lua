@@ -220,6 +220,19 @@ return {
 			vim.cmd([[hi GitSignsDelete guifg=#fa2525]])
 		end,
 	},
+	{
+		"lazygit.nvim",
+		cmd = {
+			"LazyGit",
+			"LazyGitConfig",
+			"LazyGitCurrentFile",
+			"LazyGitFilter",
+			"LazyGitFilterCurrentFile",
+		},
+		keys = {
+			{ "<leader>gl", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+		},
+	},
 	-- Indent category
 	{
 		"indent-blankline.nvim",
@@ -387,14 +400,6 @@ return {
 				end,
 				mode = { "n" },
 				desc = "[S]earch [/] in Open Files",
-			},
-			{
-				"<leader><leader>s",
-				function()
-					return require("telescope.builtin").buffers()
-				end,
-				mode = { "n" },
-				desc = "[ ] Find existing buffers",
 			},
 			{
 				"<leader>s.",

@@ -26,10 +26,10 @@ if nixCats('debug') then
 end
 -- NOTE: we included these though! Or, at least, the category is enabled.
 -- these contain nvim-lint and conform setups.
-if nixCats('lint') then
+if nixCats('langauges') then
   require('myLuaConf.lint')
 end
-if nixCats('format') then
+if nixCats('languages') then
   require('myLuaConf.format')
 end
 -- NOTE: I didnt actually include any linters or formatters in this configuration,

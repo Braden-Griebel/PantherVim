@@ -78,10 +78,10 @@ return {
 					},
 				},
 				signature = {
-					enabled = true,
-					window = {
-						show_documentation = true,
-					},
+					enabled = false,
+					-- window = {
+					-- 	show_documentation = true,
+					-- },
 				},
 				completion = {
 					menu = {

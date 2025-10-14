@@ -24,7 +24,7 @@ end)
 require("lze").load({
 	{
 		"nvim-lspconfig",
-		for_cat = "editor",
+		for_cat = "langauges",
 		on_require = { "lspconfig" },
 		-- NOTE: define a function for lsp,
 		-- and it will run for all specs with type(plugin.lsp) == table
@@ -49,7 +49,42 @@ require("lze").load({
 			vim.cmd.packadd("mason-lspconfig.nvim")
 			require("mason").setup()
 			-- auto install will make it install servers when lspconfig is called on them.
-			require("mason-lspconfig").setup({ automatic_installation = true })
+			require("mason-lspconfig").setup({
+				automatic_installation = true,
+				ensure_installed = {
+					-- Bash/Shell
+					"bashls",
+					-- c/c++
+					"clangd",
+					-- Fish
+					"fish_lsp",
+					-- Fortran
+					"fortls",
+					-- JSON
+					"jsonls",
+					-- Lua
+					"lua_ls",
+					"stylua",
+					-- Markdown
+					"marksman",
+					-- Python
+					"pyright",
+					"ruff",
+					-- R
+					"r_language_server",
+					-- Typst
+					"tinymist",
+					-- XML
+					"lemminx",
+					-- YAML
+					"yamlls",
+					-- Harper
+					"harper_ls",
+					-- Nix
+					"rnix",
+					"nil_ls",
+				},
+			})
 		end,
 	},
 	{

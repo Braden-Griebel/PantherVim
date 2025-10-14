@@ -18,6 +18,7 @@ require("lze").load({
 				bash = { "shellcheck" },
 				python = { "mypy" },
 				javascript = { "oxlint", "eslint" },
+				typscript = { "esline" },
 			}
 
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {

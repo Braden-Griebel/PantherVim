@@ -19,7 +19,7 @@ return function(_, bufnr)
 	-- because otherwise they would load telescope eagerly when this is defined.
 	-- due to us using the on_require handler to make sure it is available.
 	if nixCats("editor.picker") then
-		nmap("gr", function()
+		nmap("gR", function()
 			require("telescope.builtin").lsp_references()
 		end, "[G]oto [R]eferences")
 		nmap("gI", function()

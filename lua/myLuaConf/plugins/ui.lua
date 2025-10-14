@@ -206,6 +206,9 @@ return {
 					},
 				},
 				picker = {},
+				input = {},
+				notifier = {},
+				bigfile = {},
 			})
 		end,
 	},

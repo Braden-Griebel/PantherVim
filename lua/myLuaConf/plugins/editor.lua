@@ -272,6 +272,7 @@ return {
 				{ "<leader>w_", hidden = true },
 				{ "<leader>F", group = "[F]ormat" },
 				{ "<leader>F_", hidden = true },
+				{ "gr", group = "LSP Actions" },
 				{ "gz", group = "Vim-Slime" },
 			})
 		end,
@@ -527,10 +528,10 @@ return {
 			}
 		end,
 		keys = {
-			{ "gz", "<Plug>SlimeMotionSend" },
-			{ "gzz", "<Plug>SlimeLineSend" },
-			{ "gz", "<Plug>SlimeRegionSend", mode = { "x" } },
-			{ "gzc", "<Plug>SlimeConfig" },
+			{ "gz", "<Plug>SlimeMotionSend", desc = "Slime Motion Send" },
+			{ "gzz", "<Plug>SlimeLineSend", desc = "Slime Motion Send" },
+			{ "gz", "<Plug>SlimeRegionSend", mode = { "x" }, desc = "Slime Region Send" },
+			{ "gzc", "<Plug>SlimeConfig", desc = "Slime Config" },
 		},
 	},
 }

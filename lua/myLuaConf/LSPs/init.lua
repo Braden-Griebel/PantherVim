@@ -224,7 +224,9 @@ require("lze").load({
 	},
 	{
 		"harper_ls",
-		lsp = {},
+		lsp = {
+			filetypes = { "typst", "markdown" },
+		},
 		for_cat = "languages.writing",
 	},
 	{

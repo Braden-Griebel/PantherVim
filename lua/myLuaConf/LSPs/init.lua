@@ -177,7 +177,10 @@ require("lze").load({
 	},
 	{
 		"tinymist",
-		lsp = {},
+		ft = { "typst" },
+		lsp = {
+			filetypes = { "typst" },
+		},
 		for_cat = "languages.typst",
 	},
 	{

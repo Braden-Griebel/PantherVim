@@ -51,39 +51,7 @@ require("lze").load({
 			-- auto install will make it install servers when lspconfig is called on them.
 			require("mason-lspconfig").setup({
 				automatic_installation = true,
-				ensure_installed = {
-					-- Bash/Shell
-					"bashls",
-					-- c/c++
-					"clangd",
-					-- Fish
-					"fish_lsp",
-					-- Fortran
-					"fortls",
-					-- JSON
-					"jsonls",
-					-- Lua
-					"lua_ls",
-					"stylua",
-					-- Markdown
-					"marksman",
-					-- Python
-					"pyright",
-					"ruff",
-					-- R
-					"r_language_server",
-					-- Typst
-					"tinymist",
-					-- XML
-					"lemminx",
-					-- YAML
-					"yamlls",
-					-- Harper
-					"harper_ls",
-					-- Nix
-					"rnix",
-					"nil_ls",
-				},
+				ensure_installed = {},
 			})
 		end,
 	},
@@ -224,6 +192,7 @@ require("lze").load({
 	},
 	{
 		"harper_ls",
+		ft = { "markdown", "typst" },
 		lsp = {
 			filetypes = { "typst", "markdown" },
 		},

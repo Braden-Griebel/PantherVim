@@ -51,6 +51,7 @@ require("lze").load({
 			-- auto install will make it install servers when lspconfig is called on them.
 			require("mason-lspconfig").setup({
 				automatic_installation = true,
+				automatic_enable = false,
 				ensure_installed = {},
 			})
 		end,

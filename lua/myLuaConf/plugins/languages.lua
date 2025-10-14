@@ -76,6 +76,7 @@ return {
 						"score",
 						"sort_text",
 					},
+					implementation = "prefer_rust",
 				},
 				signature = {
 					enabled = false,

@@ -272,6 +272,7 @@ return {
 				{ "<leader>w_", hidden = true },
 				{ "<leader>F", group = "[F]ormat" },
 				{ "<leader>F_", hidden = true },
+				{ "gz", group = "Vim-Slime" },
 			})
 		end,
 	},

@@ -44,17 +44,10 @@ return {
 		for_cat = "coding",
 		after = function(plugin)
 			require("inc_rename").setup()
+			vim.keymap.set("n", "<leader>cr", function()
+				return ":IncRename " .. vim.fn.expand("<cword>")
+			end, { expr = true, desc = "[R]ename current symbol" })
 		end,
-		keys = {
-			{
-				"<leader>cr",
-				function()
-					return ":IncRename " .. vim.fn.expand("<cword>")
-				end,
-				desc = "[R]ename current symbol",
-				mode = { "n" },
-			},
-		},
 	},
 	{
 		"nvim-treesitter",

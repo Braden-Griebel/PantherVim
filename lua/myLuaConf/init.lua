@@ -34,9 +34,3 @@ end
 -- NOTE: I didnt actually include any linters or formatters in this configuration,
 -- but it is enough to serve as an example.
 -- Enable virtual text for diagnostics
-vim.diagnostic.config({
-	virtual_text = true,
-	virtual_lines = false,
-	underline = true,
-	update_in_insert = false,
-})

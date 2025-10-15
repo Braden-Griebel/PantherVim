@@ -50,6 +50,7 @@
           universal-ctags
         ];
         languages = with pkgs; {
+          default = [lua-language-server stylua];
           bash = [bash-language-server shfmt shellcheck];
           cpp = [clang-tools neocmakelsp];
           css = [vscode-langservers-extracted];
@@ -71,15 +72,22 @@
             eslint
             oxlint
           ];
+          typescript = [
+            deno
+            eslint
+            oxlint
+          ];
           json = [vscode-langservers-extracted];
           lean = [
             lean4
           ];
           lua = [
             lua-language-server
+            stylua
           ];
           markdown = [
             marksman
+            mdformat
             markdownlint-cli2
           ];
           nix = [
@@ -149,6 +157,7 @@
           html = [];
           java = [];
           javascript = [];
+          typescript = [];
           json = [];
           lean = [];
           lua = [];
@@ -358,6 +367,7 @@
             html = true;
             java = true;
             javascript = true;
+            typescript = true;
             json = true;
             lean = true;
             lua = true;

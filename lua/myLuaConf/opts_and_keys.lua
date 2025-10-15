@@ -116,6 +116,8 @@ vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open float
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 -- Virtual Text/lines toggles
+-- Default diagnistic settings
+vim.diagnostic.config({ virtual_text = true, virtual_lines = false })
 vim.keymap.set("n", "<leader>tv", function()
 	vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text })
 end, { desc = "[T]oggle [V]irtual Text" })

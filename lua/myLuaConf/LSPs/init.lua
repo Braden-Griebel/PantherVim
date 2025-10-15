@@ -24,8 +24,8 @@ end)
 require("lze").load({
 	{
 		"nvim-lspconfig",
-		for_cat = "langauges",
 		on_require = { "lspconfig" },
+		for_cat = "languages",
 		-- NOTE: define a function for lsp,
 		-- and it will run for all specs with type(plugin.lsp) == table
 		-- when their filetype trigger loads them
@@ -59,7 +59,7 @@ require("lze").load({
 	{
 		-- lazydev makes your lsp way better in your config without needing extra lsp configuration.
 		"lazydev.nvim",
-		for_cat = "editor",
+		for_cat = "editor.default",
 		cmd = { "LazyDev" },
 		ft = "lua",
 		after = function(_)
@@ -73,7 +73,7 @@ require("lze").load({
 	{
 		-- name of the lsp
 		"lua_ls",
-		enabled = nixCats("languages.lua") or nixCats("editor") or false,
+		enabled = nixCats("languages.lua") or nixCats("editor.default") or false,
 		-- provide a table containing filetypes,
 		-- and then whatever your functions defined in the function type specs expect.
 		-- in our case, it just expects the normal lspconfig setup options,
@@ -95,6 +95,9 @@ require("lze").load({
 					telemetry = { enabled = false },
 				},
 			},
+			on_attach = function(client, bufnr)
+				require("myLuaConf.LSPs.on_attach")(client, bufnr)
+			end,
 		},
 		-- also these are regular specs and you can use before and after and all the other normal fields
 	},
@@ -114,7 +117,7 @@ require("lze").load({
 	{
 		"clangd",
 		lsp = {},
-		for_cat = "langauges.cpp",
+		for_cat = "languages.cpp",
 	},
 	{
 		"fish-lsp",
@@ -159,7 +162,7 @@ require("lze").load({
 	{
 		"ocamllsp",
 		lsp = {},
-		for_cat = "langauges.ocaml",
+		for_cat = "languages.ocaml",
 	},
 	{
 		"pyright",
@@ -178,14 +181,12 @@ require("lze").load({
 	},
 	{
 		"tinymist",
-		ft = { "typst" },
-		lsp = {
-			filetypes = { "typst" },
-		},
+		lsp = {},
 		for_cat = "languages.typst",
 	},
 	{
 		"lemminx",
+		ft = { "yaml" },
 		lsp = {},
 		for_cat = "languages.xml",
 	},
@@ -196,7 +197,6 @@ require("lze").load({
 	},
 	{
 		"harper_ls",
-		ft = { "markdown", "typst" },
 		lsp = {
 			filetypes = { "typst", "markdown" },
 		},
@@ -220,7 +220,7 @@ require("lze").load({
 	},
 	{
 		"nixd",
-		enabled = catUtils.isNixCats and (nixCats("languages.nix") or nixCats("editor")) or false,
+		enabled = catUtils.isNixCats and (nixCats("languages.nix") or nixCats("editor.default")) or false,
 		lsp = {
 			filetypes = { "nix" },
 			settings = {

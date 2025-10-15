@@ -122,7 +122,7 @@ vim.keymap.set("n", "<leader>tv", function()
 	vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text })
 end, { desc = "[T]oggle [V]irtual Text" })
 vim.keymap.set("n", "<leader>tl", function()
-	vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines } })
+	vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines } )
 end, { desc = "[T]oggle Virtual [L]ines" })
 
 -- You should instead use these keybindings so that they are still easy to use, but dont conflict

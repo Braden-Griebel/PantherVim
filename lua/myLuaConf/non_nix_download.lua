@@ -98,7 +98,6 @@ require("nixCatsUtils.catPacker").setup({
 
 	-- Category UI
 	{ "akinsho/bufferline.nvim", opt = true },
-	{ "nvimdev/dashboard-nvim", opt = true },
 	{ "nvim-lualine/lualine.nvim", opt = true },
 	{ "nvim-mini/mini.animate", opt = true },
 	{ "nvim-mini/mini.icons", opt = true },

@@ -141,8 +141,8 @@ require("lze").load({
 	},
 	{
 		"denols",
+    enabled = (nixCats("languages.javascript") or nixCats("languages.typescript")) or false, 
 		lsp = {},
-		for_cat = "languages.javascript",
 	},
 	{
 		"jsonls",

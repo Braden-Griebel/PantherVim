@@ -370,6 +370,7 @@
             typst = true;
             xml = true;
             yaml = true;
+            writing = true;
           };
           lspDebugMode = false;
           themer = true;

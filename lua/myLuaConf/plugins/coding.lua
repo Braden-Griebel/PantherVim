@@ -3,7 +3,7 @@ return {
 		"nvim-autopairs",
 		for_cat = "coding",
 		event = "InsertEnter",
-		after = function(plugin)
+		after = function(_)
 			require("nvim-autopairs").setup()
 		end,
 	},
@@ -11,21 +11,21 @@ return {
 		"comment.nvim",
 		for_cat = "coding",
 		event = "DeferredUIEnter",
-		after = function(plugin)
+		after = function(_)
 			require("Comment").setup()
 		end,
 	},
 	{
 		"mini.ai",
 		for_cat = "coding",
-		after = function(plugin)
+		after = function(_)
 			require("mini.ai").setup({ n_lines = 500 })
 		end,
 	},
 	{
 		"mini.surround",
 		for_cat = "coding",
-		after = function(plugin)
+		after = function(_)
 			require("mini.surround").setup({
 				mappings = {
 					add = "gsa", -- Add surrounding in Normal and Visual modes
@@ -42,8 +42,8 @@ return {
 	{
 		"inc-rename.nvim",
 		for_cat = "coding",
-		after = function(plugin)
-			require("inc_rename").setup()
+		after = function(_)
+			require("inc_rename").setup({})
 			vim.keymap.set("n", "<leader>cr", function()
 				return ":IncRename " .. vim.fn.expand("<cword>")
 			end, { expr = true, desc = "[R]ename current symbol" })

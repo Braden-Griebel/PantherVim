@@ -141,7 +141,7 @@ require("lze").load({
 	},
 	{
 		"denols",
-    enabled = (nixCats("languages.javascript") or nixCats("languages.typescript")) or false, 
+		enabled = (nixCats("languages.javascript") or nixCats("languages.typescript")) or false,
 		lsp = {},
 	},
 	{
@@ -199,6 +199,9 @@ require("lze").load({
 		"harper_ls",
 		lsp = {
 			filetypes = { "typst", "markdown" },
+			settings = {
+				workspaceDictPath = require("myLuaConf.myUtils").find_git_root(),
+			},
 		},
 		for_cat = "languages.writing",
 	},

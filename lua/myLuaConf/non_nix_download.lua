@@ -108,4 +108,3 @@ require("nixCatsUtils.catPacker").setup({
 	{ "rubiin/fortune.nvim", opt = true },
 	{ "akinsho/toggleterm.nvim", opt = true, as = "toggleterm" },
 })
-

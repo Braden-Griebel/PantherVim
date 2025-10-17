@@ -99,8 +99,8 @@ return {
 			require("todo-comments").setup()
 		end,
 		keys = {
-			{ "<leader>st", "<cmd>TodoTelescope<cr>", modes = { "n" }, desc = "[S]earch [T]odo" },
-			{ "<leader>xt", ":Trouble todo", modes = "n", desc = "Todo List (Trouble)" },
+			{ "<leader>st", "<cmd>TodoTelescope<CR>", mode = { "n" }, desc = "[S]earch [T]odo" },
+			{ "<leader>xt", "<cmd>Trouble todo<CR>", mode = { "n" }, desc = "Todo List (Trouble)" },
 		},
 	},
 	-- Files category
@@ -304,6 +304,8 @@ return {
 				{ "<leader>w_", hidden = true },
 				{ "<leader>F", group = "[F]ormat" },
 				{ "<leader>F_", hidden = true },
+				{ "<leader>x", group = "Trouble" },
+				{ "<leader>x_", hidden = true },
 				{ "gr", group = "LSP Actions" },
 				{ "gz", group = "Vim-Slime" },
 			})

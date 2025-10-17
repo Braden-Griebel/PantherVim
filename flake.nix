@@ -212,6 +212,7 @@
           python = [nvim-dap-python];
         };
         editor = with pkgs.vimPlugins; {
+          diagnostics = [trouble-nvim todo-nvim];
           files = [
             oil-nvim
             neo-tree-nvim
@@ -346,6 +347,7 @@
           };
           editor = {
             default = true;
+            diagnostics = true;
             files = true;
             git = true;
             indent = true;

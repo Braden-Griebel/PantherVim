@@ -43,6 +43,10 @@ require("nixCatsUtils.catPacker").setup({
 	{ "mfussenegger/nvim-dap", opt = true },
 
 	-- Category Editor
+	-- Diagnostics
+	{ "folke/trouble.nvim", opt = true },
+	{ "folke/todo-comments.nvim", opt = true },
+
 	-- Files
 	{ "stevearc/oil.nvim", opt = true },
 	{ "nvim-neo-tree/neo-tree.nvim", opt = true },

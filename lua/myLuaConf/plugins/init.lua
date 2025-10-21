@@ -1,9 +1,3 @@
-local colorschemeName = nixCats("colorscheme")
-if not require("nixCatsUtils").isNixCats then
-	colorschemeName = "rose-pine"
-end
-vim.cmd.colorscheme(colorschemeName)
-
 local ok, notify = pcall(require, "notify")
 if ok then
 	notify.setup({

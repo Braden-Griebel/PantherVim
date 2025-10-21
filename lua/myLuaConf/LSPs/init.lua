@@ -186,12 +186,13 @@ require("lze").load({
 	},
 	{
 		"lemminx",
-		ft = { "yaml" },
+		ft = { "xml" },
 		lsp = {},
 		for_cat = "languages.xml",
 	},
 	{
 		"yamlls",
+		ft = { "yaml" },
 		lsp = {},
 		for_cat = "languages.yaml",
 	},

@@ -1,6 +1,6 @@
 -- Don't have the nix providers, so tell Mason where to find them
-vim.g.python3_host_prog = "~/environments/pynvim/bin/python"
-vim.g.python_host_prog = "~/environments/pynvim/bin/python"
+vim.g.python3_host_prog = "~/environments/pynvim/.venv/bin/python"
+vim.g.python_host_prog = "~/environments/pynvim/.venv/bin/python"
 
 -- load the plugins via paq-nvim when not on nix
 require("nixCatsUtils.catPacker").setup({

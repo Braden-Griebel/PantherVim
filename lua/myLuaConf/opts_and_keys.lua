@@ -94,6 +94,8 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
 vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up" })
 vim.keymap.set("n", "n", "nzzzv", { desc = "Next Search Result" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous Search Result" })
+vim.keymap.set("v", ">", ">gv", { desc = "Indent selection" })
+vim.keymap.set("v", "<", "<gv", { desc = "Indent selection" })
 
 -- see help sticky keys on windows
 vim.cmd([[command! W w]])
@@ -122,7 +124,7 @@ vim.keymap.set("n", "<leader>tv", function()
 	vim.diagnostic.config({ virtual_text = not vim.diagnostic.config().virtual_text })
 end, { desc = "[T]oggle [V]irtual Text" })
 vim.keymap.set("n", "<leader>tl", function()
-	vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines } )
+	vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })
 end, { desc = "[T]oggle Virtual [L]ines" })
 
 -- You should instead use these keybindings so that they are still easy to use, but dont conflict

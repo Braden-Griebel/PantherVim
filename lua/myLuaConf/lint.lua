@@ -3,7 +3,7 @@ require("lze").load({
 		"nvim-lint",
 		for_cat = "languages",
 		event = "FileType",
-		after = function(plugin)
+		after = function(_)
 			require("lint").linters_by_ft = {
 				markdown = { "markdownlint-cli2" },
 				bash = { "shellcheck" },
